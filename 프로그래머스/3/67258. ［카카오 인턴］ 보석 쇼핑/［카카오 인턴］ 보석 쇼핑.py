@@ -7,7 +7,8 @@ def solution(gems):
     gem_cnt_dict[gems[0]] = 1
     l, r = 0, 0
     answer = [0, float('inf')]
-    while l < n:
+    
+    while True:
         if len(gem_cnt_dict) == gem_type_cnt:
             # 기존 구간보다 더 짧은 구간이면 답 갱신
             if (answer[1] - answer[0]) > (r - l):
@@ -18,6 +19,8 @@ def solution(gems):
                 gem_cnt_dict.pop(gems[l])
             # 구간 줄이기
             l += 1
+            # 탈출 조건
+            if l == n: break
         elif len(gem_cnt_dict) < gem_type_cnt:
             # 구간 늘리기
             r += 1
