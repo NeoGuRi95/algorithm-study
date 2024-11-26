@@ -1,45 +1,51 @@
+import java.io.*;
 import java.util.*;
- 
-public class Main {    
- 
-    static int min = Integer.MAX_VALUE;
-    static int n, k;
-    static boolean[] visited;
-    static int max = 100000;
-    
-    public static void main(String args[]) {
-        Scanner scan = new Scanner(System.in);
+
+public class Main {
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        int n = Integer.parseInt(st.nextToken());
+        int k = Integer.parseInt(st.nextToken());
+        int answer = Integer.MAX_VALUE;
+
+        Queue<Position> que = new LinkedList<>();
+        boolean[] visited = new boolean[100001];
+        que.offer(new Position(n, 0));
         
-        n = scan.nextInt();
-        k = scan.nextInt();
-        
-        visited = new boolean[max + 1];
-        bfs();
-        System.out.println(min);
-    }
-    
-    public static void bfs() {
-        Queue<Node> q = new LinkedList<>();
-        q.offer(new Node(n, 0));
-        
-        while(!q.isEmpty()) {
-            Node node = q.poll();
-            visited[node.x] = true;
-            if(node.x == k) min = Math.min(min, node.time);
-            
-            if(node.x * 2 <= max && visited[node.x * 2] == false) q.offer(new Node(node.x * 2, node.time));
-            if(node.x + 1 <= max && visited[node.x + 1] == false) q.offer(new Node(node.x + 1, node.time + 1));
-            if(node.x - 1 >= 0 && visited[node.x - 1] == false) q.offer(new Node(node.x - 1, node.time + 1));
+        while (!que.isEmpty()) {
+            Position curPosition = que.poll();
+            int curSecond = curPosition.second;
+            int curX = curPosition.x;
+            visited[curX] = true;
+            if (curX == k) {
+                answer = Math.min(answer, curSecond);
+                continue;
+            }
+            if (curX * 2 <= 100000 && !visited[curX * 2]) {
+                que.offer(new Position(curX * 2, curSecond));
+            }
+            if (curX + 1 <= 100000 && !visited[curX + 1]) {
+                que.offer(new Position(curX + 1, curSecond + 1));
+            }
+            if (curX - 1 >= 0 && !visited[curX - 1]) {
+                que.offer(new Position(curX - 1, curSecond + 1));
+            }
         }
+
+        System.out.println(answer);
+
+        br.close();
     }
-    
-    public static class Node {
+
+    static class Position {
         int x;
-        int time;
-        
-        public Node(int x, int time) {
+        int second;
+        Position(int x, int second) {
             this.x = x;
-            this.time = time;
+            this.second = second;
         }
     }
 }
