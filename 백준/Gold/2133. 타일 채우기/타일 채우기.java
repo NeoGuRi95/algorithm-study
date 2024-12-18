@@ -17,10 +17,8 @@ public class Main {
 
     dp[0][0] = 1;
     dp[1][1] = 2;
-    dp[2][0] = 3;
-    dp[2][2] = 2;
 
-    for (int i = 3; i <= n; i++) {
+    for (int i = 2; i <= n; i++) {
       if (i % 2 == 0) { // 짝수
         dp[i][0] = dp[i - 2][2] + 3 * dp[i - 2][0];
         dp[i][2] = dp[i - 1][1];
