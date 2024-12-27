@@ -19,12 +19,10 @@ class Solution {
         
         while (!pq.isEmpty()) {
             int[] cost = pq.poll();
-            // System.out.println("cost: " + cost[2]);
             
             if (find(cost[0]) == find(cost[1])) continue;
             
             merge(cost[0], cost[1]);
-            System.out.println(Arrays.toString(parent));
             
             answer += cost[2];
         }
@@ -40,7 +38,6 @@ class Solution {
     public void merge(int i, int j) {
         int pi = find(i);
         int pj = find(j);
-        if (pi < pj) this.parent[pj] = pi;
-        else this.parent[pi] = pj;
+        this.parent[pj] = pi;
     }
 }
