@@ -22,7 +22,7 @@ class Solution {
                 
                 if (jumpSize == k) break;
             }
-            // System.out.println("mid: " + mid + ", jumpSize: " + jumpSize);
+            
             if (jumpSize < k) {
                 l = mid + 1;
             } else {
